@@ -1,4 +1,5 @@
 {
     "cmake.sourceDirectory": "D:/UTSMOBILE/mobileuts/linux",
-    "liveServer.settings.multiRootWorkspaceName": "mobileuts"
+    "liveServer.settings.multiRootWorkspaceName": "mobileuts",
+    "dart.flutterSdkPath": "C:\\src\\flutter"
 }

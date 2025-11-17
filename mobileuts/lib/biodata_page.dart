@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 
 class BiodataPage extends StatefulWidget {
   const BiodataPage({super.key});
@@ -12,23 +11,6 @@ class _BiodataPageState extends State<BiodataPage> {
   final TextEditingController _namaController = TextEditingController();
   final TextEditingController _nimController = TextEditingController();
   String? _gender;
-  late String _randomPhotoUrl;
-
-  final List<String> _randomImages = [
-    'https://randomuser.me/api/portraits/men/11.jpg',
-    'https://randomuser.me/api/portraits/men/22.jpg',
-    'https://randomuser.me/api/portraits/men/33.jpg',
-    'https://randomuser.me/api/portraits/women/44.jpg',
-    'https://randomuser.me/api/portraits/women/55.jpg',
-    'https://randomuser.me/api/portraits/women/66.jpg',
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    // ambil gambar random saat halaman dibuka
-    _randomPhotoUrl = _randomImages[Random().nextInt(_randomImages.length)];
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +21,7 @@ class _BiodataPageState extends State<BiodataPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 20),
+
             const Text(
               'Biodata Mahasiswa',
               style: TextStyle(
@@ -47,18 +30,30 @@ class _BiodataPageState extends State<BiodataPage> {
                 color: Colors.green,
               ),
             ),
+
             const SizedBox(height: 20),
 
-            // FOTO PROFIL RANDOM
+            // FOTO PROFIL SESUAI GENDER
             CircleAvatar(
               radius: 60,
-              backgroundImage: NetworkImage(_randomPhotoUrl),
+              backgroundColor: Colors.green.shade100,
+              child: Icon(
+                _gender == 'Laki-laki'
+                    ? Icons.man
+                    : _gender == 'Perempuan'
+                        ? Icons.woman
+                        : Icons.person, // icon default
+                size: 60,
+                color: Colors.green,
+              ),
             ),
+
             const SizedBox(height: 10),
             const Text(
-              'Foto profil dipilih secara acak',
+              'Foto profil sesuai gender',
               style: TextStyle(fontSize: 14, color: Colors.grey),
             ),
+
             const SizedBox(height: 30),
 
             // INPUT NAMA
@@ -72,6 +67,7 @@ class _BiodataPageState extends State<BiodataPage> {
                 prefixIcon: const Icon(Icons.person),
               ),
             ),
+
             const SizedBox(height: 20),
 
             // INPUT NIM
@@ -86,6 +82,7 @@ class _BiodataPageState extends State<BiodataPage> {
               ),
               keyboardType: TextInputType.number,
             ),
+
             const SizedBox(height: 20),
 
             // JENIS KELAMIN
@@ -96,8 +93,8 @@ class _BiodataPageState extends State<BiodataPage> {
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
             ),
+
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Expanded(
                   child: RadioListTile<String>(
@@ -127,6 +124,7 @@ class _BiodataPageState extends State<BiodataPage> {
                 ),
               ],
             ),
+
             const SizedBox(height: 20),
 
             // TOMBOL TAMPILKAN DATA
@@ -150,7 +148,13 @@ class _BiodataPageState extends State<BiodataPage> {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Image.network(_randomPhotoUrl, width: 100),
+                          Icon(
+                            _gender == 'Laki-laki'
+                                ? Icons.man
+                                : Icons.woman,
+                            size: 80,
+                            color: Colors.green,
+                          ),
                           const SizedBox(height: 10),
                           Text('Nama: ${_namaController.text}'),
                           Text('NIM: ${_nimController.text}'),

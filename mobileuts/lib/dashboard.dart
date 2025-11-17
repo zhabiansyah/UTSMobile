@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dashboard_home.dart';
 import 'biodata_page.dart';
 import 'kontak_page.dart';
 import 'kalkulator_page.dart';
@@ -15,17 +16,17 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   int _currentIndex = 0;
 
-  // jangan pakai `const` kecuali semua page punya konstruktor const
-  final List<Widget> _pages = [
-    const BiodataPage(),
-    const KontakPage(),
-    const KalkulatorPage(),
+  final List<Widget> _pages = const [
+    DashboardHome(),
+    BiodataPage(),
+    KontakPage(),
+    KalkulatorPage(),
     CuacaPage(),
-    const BeritaPage(),
+    BeritaPage(),
   ];
 
-
   final List<String> _titles = const [
+    'Dashboard',
     'Biodata',
     'Kontak',
     'Kalkulator',
@@ -40,17 +41,30 @@ class _DashboardState extends State<Dashboard> {
         title: Text(_titles[_currentIndex]),
         backgroundColor: Colors.green,
         foregroundColor: Colors.white,
+        centerTitle: true,
       ),
+
       body: _pages[_currentIndex],
+
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.green,
         unselectedItemColor: Colors.grey,
-        onTap: (index) => setState(() => _currentIndex = index),
+        type: BottomNavigationBarType.fixed,
+
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+
         items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.dashboard), label: 'Dashboard'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Biodata'),
-          BottomNavigationBarItem(icon: Icon(Icons.contacts), label: 'Kontak'),
+          BottomNavigationBarItem(icon: Icon(Icons.contact_page), label: 'Kontak'),
           BottomNavigationBarItem(icon: Icon(Icons.calculate), label: 'Kalkulator'),
           BottomNavigationBarItem(icon: Icon(Icons.cloud), label: 'Cuaca'),
           BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Berita'),
